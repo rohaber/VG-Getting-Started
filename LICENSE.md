@@ -1,0 +1,2 @@
+The documentation is not part of the main project, so it is not under MIT license (or any license you’re using). 
+To make use of this documentation you need to buy a license online (http://shamsoft.net/thedocs/).
