@@ -78,9 +78,9 @@
               <a class="active" href="#">Universal App</a>
               <ul>
                 <li><a href="uwp_prerequisites.html">Prerequisites</a></li>
-                <li><a class="active" href="upw_contents.html">Contents Of Package</a></li>
-                <li><a href="upw_demo.html">Demo Application</a></li>
-                <li><a href="upw_your_app.html">Your Own Application</a></li>
+                <li><a class="active" href="uwp_contents.html">Contents Of Package</a></li>
+                <li><a href="uwp_demo.html">Demo Application</a></li>
+                <li><a href="uwp_your_app.html">Your Own Application</a></li>
               </ul>
             </li>
 
@@ -102,53 +102,60 @@
           
           <header>
             <h1>Contents of VGDRM UWP Integration Package</h1>
-            <p>The VGDRM UWP integration package contains the following folders</p>
+
+            <ol class="toc">
+              <li><a href="#what_included">What's included</a></li>
+              <li><a href="#legal">Legal</a></li>
+              <li><a href="#app">VGConnectUWPApplication</a></li>
+            </ol>
 
             <section>
-              <div class="code-snippet">
+                <h2 id="what_included">What's included</h2>
+                <p>Once you download the SDK, you can see a folder with several files and sub folders. You can read description of some important files below.</p>
+
                 <div class="file-tree">
                   <ul>
-                    <li class="is-folder">
+                    <li class="is-folder open">
                       Legal<i>third-party licenses folder</i>
                       <ul>
-                        <li class="is-file">custom.css<i>some description about the file</i></li>
-                        <li class="is-file">theDocs.css<i>some description about the file</i></li>
+                        <li class="is-file">VGDRM_SDK_5.2.pdf<i>Open source used in SDK document</i></li>
                       </ul>
                     </li>
 
-                    <li class="is-folder">
+                    <li class="is-folder open">
                       VGConnectUWPApplication<i>VS2015 Solution folder</i>
                       <ul>
-                        <li class="is-file">fontawesome-webfont.eot<i>some description about the file</i></li>
-                        <li class="is-file">fontawesome-webfont.svg<i>some description about the file</i></li>
-                        <li class="is-file">fontawesome-webfont.ttf<i>some description about the file</i></li>
-                        <li class="is-file">fontawesome-webfont.woff<i>some description about the file</i></li>
+                        <li class="is-file">VGConnectUWPApplication.sln<i>Visual Studio 2015 solution</i></li>
+                        <li class="is-folder">VGConnectUWPApplication<i>Demo application source files</i></li>
+                        <li class="is-folder open">
+                          libs<i>SDK binaries distribution</i>
+                          <ul>
+                            <li class="is-file">config.props<i>SDK configuration file</i></li>
+                            <li class="is-folder">vgdrm_enc.cfg</i>DRMA ecripted configuration file</li>
+                            <li class="is-folder">x86</i>Binaries for Intel based platforms</li>
+                            <li class="is-folder">arm</i>Binaries for Intel based platforms</li>
+                          </ul>
+                        </li>
                       </ul>
                     </li>
 
-                    <li class="is-folder">
+                    <li class="is-folder open">
                       Docs<i>Documentation folder</i>
                       <ul>
-                        <li class="is-file">placeholder.jpg<i>some description about the file</i></li>
-                        <li class="is-file">logo.png<i>some description about the file</i></li>
-                        <li class="is-file">sample-video.mp4<i>some description about the file</i></li>
-                        <li class="is-file">ads.png<i>some description about the file</i></li>
+                        <li class="is-file">VGDRM for Universal Windows Platform (UWP) Apps - Developer Guide.pdf<i>UWP Getting started guide</i></li>
+                        <li class="is-file">VGDRM Application Programming Interface (API) for the Universal Windows Platform (UWP).pdf<i>UWP PI document</i></li>
                       </ul>
                     </li>
 
                   </ul>
-                </div>
+
               </div>
             </section>
 
-            <ol class="toc">
-              <li><a href="#legel">Legal</a></li>
-              <li><a href="#app">VGConnectUWPApplication</a></li>
-            </ol>
           </header>
 
           <section>
-            <h2 id="legal">Legal</h2>
+            <h2 id="legal">Legal Folder</h2>
             <p>The Legal folder contains third-party licenses.</p>
             <div class="callout callout-danger" role="alert">
               <h4>Note</h4>
@@ -156,7 +163,34 @@
             </div>
           </section>
 
-          
+          <section>
+            <h2 id="app">VGConnectUWPApplication Folder</h2>
+            <p>This folder contains a VS2015 Solution that was used to build the demo application and the binary files required to build your own application using our components.</p>
+
+            <p>The <i>VGConnectUWPApplication</i> folder contains the c#/xaml project. This C# project contains references to the set of dlls it expects to find in the folder <code class="text-purple">\Libs\&lt;platform&gt;\</code>, for example, <code class="text-purple">\Libs\ARM\</code>.</p>
+
+            <p><code class="text-purple">GConnectUWPSolution.sln</code> is the VS2015 Solution file. For more information, see section, “Installing and Running Demo Application”.</p>
+
+            <p><code class="text-purple">config.props</code> and < class="text-purple"code>vgdrm_enc.cfg</code> are configuration files that must be saved in the folder with binary files. Modify headend properties in file <code class="text-purple">config.props</code>, if necessary.</p>
+
+            <p>The <code class="text-purple">localSettings.xml</code> file can be used to modify application behavior and sample data.</p>
+            
+            <div class="callout callout-info" role="alert">
+              <h4>Note</h4>
+
+              <ul style="list-style-type:circle">
+                <li>
+                  The application reads the <code class="text-purple">localSettings.xml</code> file from the <code class="text-purple">LocalState</code> folder of the Application (section ### specifies locations of various LocalState folders).
+                </li>
+                <li>
+                  The application can also run without this file.
+                </li>
+              </ul>
+            </div>
+
+          </section>
+
+
         </article>
         <!-- END Main content -->
       </div>
