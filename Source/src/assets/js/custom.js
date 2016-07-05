@@ -1,9 +1,3 @@
-
-var script = document.createElement('script');
-script.src = '//code.jquery.com/jquery-1.11.0.min.js';
-script.type = 'text/javascript';
-document.getElementsByTagName('head')[0].appendChild(script);
-
 $(function() {
 
   $('[data-skin]').on('click', function(e) {
@@ -28,7 +22,5 @@ $(function() {
   $('#sb-skin-dark').on('click', function() {
     $('.sidebar-boxed').addClass('sidebar-dark');
   });
-
-  $("#zoom_01").elevateZoom();
 
 });
