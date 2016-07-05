@@ -104,20 +104,117 @@
             <h1>Demo Application</h1>
             <p></p>
             <ol class="toc">
-              <li><a href="#win10">Windows 10</a></li>
-              <li><a href="#vs">Visual Studio 2015</a></li>
+              <li><a href="#install">Installing and Running</a></li>
+              <li><a href="#edit">Where and How to Change</a></li>
             </ol>
           </header>
 
           <section>
-            <h2 id="win10">Install Windows 10</h2>
-            <p>bla-bla</p>
+            <h2 id="install">Installing and Running Demo Application</h2>
+            <h3>To install and run the demo application:</h3>
+            <ul style="list-style-type:decimal">
+              <li>
+                <h5>Open solution</h5>
+                <p>Using Microsoft Visual Studio 2015, open the solution file <code class="text-purple">VGConnectUWPSolution\VGConnectUWPSolution.sln</code>.
+Ensure that the proper platform is selected (<b>Win32</b> or <b>ARM</b>).</p>
+              </li>
+              <li>
+                <h5>Build solution</h5>
+                <p>Build and deploy the solution file.</p>
+              </li>
+              <li>
+                <h5>Delpoy Application</h5>
+                <p>To install the application, follow the <a href="https://msdn.microsoft.com/en-us/windows/uwp/debug-test-perf/deploying-and-debugging-uwp-apps"><span class="label label-teal">Microsoft instructions</span></a>.</p>
+                <div class="alert alert-warning" role="alert">
+                  IMPORTANT! Ensure that the computer has a valid <a href="https://msdn.microsoft.com/en-us/windows/uwp/get-started/sign-up"><span class="label label-teal">Microsoft Developer License</span></a> installed.
+                </div>
+              </li>
+              <li>
+                <h5>Launch Application</h5>
+                <p>Find the newly deployed application VGConnectUWPApplication, and then launch it.</p>
+
+                <ul style="list-style-type:circle">
+                  <li>
+                    On the bottom is a list of assets in groups such as <span class="label label-primary">Live</span>, <span class="label label-primary">VOD</span>, etc. Click any asset to select it and view its details.
+                    You can edit the fields if you wish, and then click <span class="label label-default">Watch</span> to play that asset.
+                  </li>
+                  <li>
+                    Click on any asset to select it. Click it again to return to the playing video.
+                  </li>
+                  <li>
+                    The LOG window (<img width="20" height="20" class="img-rounded" alt="image" src="assets/img/log-button.png"/> button) displays (and lets you copy) logs produced by the application. Click the button again to hide the log window.
+                  </li>
+                  <li>Click the More button <img width="20" height="20" class="img-rounded" alt="image" src="assets/img/triple-dots.png"/> to select additional functionalities.
+                  </li>
+                  <li>Select <span class="label label-default">All API Calls</span> to open the list of APIs (you may want to open the log window to see API call results).
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <br>
+            
+            <div class="video">
+              <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;"><iframe src="https://www.youtube.com/embed/4iFX2FnK_8o" frameborder="0" allowfullscreen="" id="fitvid630122"></iframe></div>
+            </div>
 
           </section>
 
           <section>
-            <h2 id="vs">Install Visual Studio 2015</h2>
-            <p>bla-bla</p>
+            <h2 id="edit">More about Demo Application</h2>
+            <h3>Platform Configurations</h3>
+            <p>
+              In Windows, since the application loads proprietary DLLs (security) that only work in 32 bits, the application has been built and packaged only in win 32-bit and ARM platform configurations and not in win 64-bit.
+            </p>
+            <p>
+              The DRM DLL, however, is supplied in both 32- and 64-bit versions because it runs inside the PMP process. This process must be 64 bits when running under a Windows 64-bit OS.
+            </p>
+
+            <h3>LocalState Folder on Windows 10</h3>
+            <p>
+              After deploying the package, this folder is found under <code class="text-purple">%appdata%\..\Local\Packages\VideoGuardDRM_m900y9vwakk0y\</code>
+            </p>
+
+            <h3>LocalState Folder on Windows 10 Phone</h3>
+            <p>After deploying the package, this folder is found under <code class="text-purple">C:\Data\Users\DefApps\APPDATA\Local\Packages\VideoGuardDRM_m900y9vwakk0y\</code>
+            </p>
+
+            <h3>LocalState Folder on XBOX One</h3>
+            <p>
+              After deploying the package, this folder is found under <code class="text-purple">U:\Users\DefaultAccount\AppData\Local\Packages\VideoGuardDRM_m900y9vwakk0y\</code>
+            </p>
+
+            <h3>Playing Alternate Content</h3>
+            <ul style="list-style-type:disk">
+              <li>
+                Locate the application’s <code class="text-purple">LocalState</code>folder.
+              </li>
+              <li>
+                Copy the <code class="text-purple">catalog.json</code> file to the <code class="text-purple">LocalState\Settings</code> folder.
+              </li>
+              <li>
+                Modify the content of <code class="text-purple">catalog.json</code> to load a different json file, built according to the sample given in the file.
+              </li>
+            </ul>
+
+            <h3>Set Alternate Settings</h3>
+            <ul style="list-style-type:disk">
+              <li>
+                Locate the <code class="text-purple">LocalState</code> folder of the application.
+              </li>
+              <li>
+                Copy the <code class="text-purple">appSettings.json</code> file to the <code class="text-purple">LocalState\Settings</code>
+              </li>
+              <li>
+                Modify the desired settings according to the sample provided in the file.
+              </li>
+            </ul>            
+            
+            <br>
+            
+            <div class="video">
+              <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;"><iframe src="https://www.youtube.com/embed/J9GsTh1HfS0" frameborder="0" allowfullscreen="" id="fitvid630122"></iframe></div>
+            </div>
 
           </section>
           

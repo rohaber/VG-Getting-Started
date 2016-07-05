@@ -167,20 +167,20 @@
             <h2 id="app">VGConnectUWPApplication Folder</h2>
             <p>This folder contains a VS2015 Solution that was used to build the demo application and the binary files required to build your own application using our components.</p>
 
-            <p>The <i>VGConnectUWPApplication</i> folder contains the c#/xaml project. This C# project contains references to the set of dlls it expects to find in the folder <code class="text-purple">\Libs\&lt;platform&gt;\</code>, for example, <code class="text-purple">\Libs\ARM\</code>.</p>
+            <p>The <code class="text-purple">VGConnectUWPApplication</code> folder contains the <code>C#/xaml</code> project. This C# project contains references to the set of dlls it expects to find in the folder <code class="text-purple">\Libs\&lt;platform&gt;\</code>, for example, <code class="text-purple">\Libs\ARM\</code>.</p>
 
             <p><code class="text-purple">GConnectUWPSolution.sln</code> is the VS2015 Solution file. For more information, see section, “Installing and Running Demo Application”.</p>
 
-            <p><code class="text-purple">config.props</code> and < class="text-purple"code>vgdrm_enc.cfg</code> are configuration files that must be saved in the folder with binary files. Modify headend properties in file <code class="text-purple">config.props</code>, if necessary.</p>
+            <p><code class="text-purple">config.props</code> and <code class="text-purple"code>vgdrm_enc.cfg</code> are configuration files that must be saved in the folder with binary files. Modify headend properties in file <code class="text-purple">config.props</code>, if necessary.</p>
 
-            <p>The <code class="text-purple">localSettings.xml</code> file can be used to modify application behavior and sample data.</p>
+            <p>The <code class="text-purple">appSettings.json</code> file can be used to modify application behavior and sample data.</p>
             
             <div class="callout callout-info" role="alert">
               <h4>Note</h4>
 
               <ul style="list-style-type:circle">
                 <li>
-                  The application reads the <code class="text-purple">localSettings.xml</code> file from the <code class="text-purple">LocalState</code> folder of the Application (section ### specifies locations of various LocalState folders).
+                  The application reads the <code class="text-purple">localSettings.xml</code> file from the <code class="text-purple">LocalState</code> folder of the Application (<a href="uwp_demo.html#edit"><span class="label label-teal">More About Demo Application</span></a>specifies locations of various LocalState folders).
                 </li>
                 <li>
                   The application can also run without this file.
