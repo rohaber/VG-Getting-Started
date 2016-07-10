@@ -2317,14 +2317,14 @@ pre[class*='language-'][data-language]::before {
   counter-reset: toc1;
 }
 
-.step-text li {
+.step-text > li {
   position: relative;
   padding-left: 60px;
   margin-bottom: 48px;
   font-weight: 300;
 }
 
-.step-text li:before {
+.step-text > li:before {
   content: counter(toc1, decimal-leading-zero) ".";
   counter-increment: toc1;
   position: absolute;
