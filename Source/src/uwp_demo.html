@@ -106,6 +106,7 @@
             <ol class="toc">
               <li><a href="#install">Installing and Running</a></li>
               <li><a href="#edit">Where and How to Change</a></li>
+              <li><a href="#deploy">How to Run Appliction on Device</a></li>
             </ol>
           </header>
 
@@ -143,18 +144,24 @@ Ensure that the proper platform is selected (<b>Win32</b> or <b>ARM</b>).</p>
                   <li>
                     The LOG window (<img width="20" height="20" class="img-rounded" alt="image" src="assets/img/log-button.png"/> button) displays (and lets you copy) logs produced by the application. Click the button again to hide the log window.
                   </li>
-                  <li>Click the More button <img width="20" height="20" class="img-rounded" alt="image" src="assets/img/triple-dots.png"/> to select additional functionalities.
+                  <li>
+                    Click the More button <img width="20" height="20" class="img-rounded" alt="image" src="assets/img/triple-dots.png"/> to select additional functionalities.
                   </li>
-                  <li>Select <span class="label label-default">All API Calls</span> to open the list of APIs (you may want to open the log window to see API call results).
+                  <li>
+                    Select <span class="label label-default">All API Calls</span> to open the list of APIs (you may want to open the log window to see API call results).
                   </li>
                 </ul>
               </li>
             </ul>
 
             <br>
-            
+           
+            <div class="alert alert-success" role="alert">
+              Note: Choose high quality bitrate 720p for the best viewing experience.
+            </div>
+
             <div class="video">
-              <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;"><iframe src="https://www.youtube.com/embed/4iFX2FnK_8o" frameborder="0" allowfullscreen="" id="fitvid630122"></iframe></div>
+              <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;"><iframe src="https://www.youtube.com/embed/4iFX2FnK_8o" frameborder="0" allowfullscreen="" id="fitvid-1"></iframe></div>
             </div>
 
           </section>
@@ -211,8 +218,68 @@ Ensure that the proper platform is selected (<b>Win32</b> or <b>ARM</b>).</p>
             
             <br>
             
+            <div class="alert alert-success" role="alert">
+              Note: Choose high quality bitrate 720p for the best viewing experience.
+            </div>
+
             <div class="video">
-              <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;"><iframe src="https://www.youtube.com/embed/J9GsTh1HfS0" frameborder="0" allowfullscreen="" id="fitvid630122"></iframe></div>
+              <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;"><iframe src="https://www.youtube.com/embed/J9GsTh1HfS0" frameborder="0" allowfullscreen="" id="fitvid-2"></iframe></div>
+            </div>
+
+          </section>
+
+          <section>
+            <h2 id="deploy">Deploy Demo Application to Win10 device</h2>
+            <h3>The deployment process is very simple and straightforward:</h3>
+            <ul class="step-text">
+              <li>
+                <h5>Start create package</h5>
+                <p>Using Microsoft Visual Studio 2015, open the solution file <code class="text-purple">VGConnectUWPSolution\VGConnectUWPSolution.sln</code>. Right click on the application project <code class="text-purple">VGConnectUWPApplication</code> and choose <span class="label label-default">Store</span><span class="glyphicon glyphicon-arrow-right"></span><span class="label label-default">Create App Packages ...</span> from the menu.</p>
+              </li>
+              <li>
+                <h5>Create App Packages</h5>
+                <p>Choose <span class="label label-info">No</span> option on the next dialog to specify that you want to build local deployment package. Click the <span class="label label-default">Next</span> button to go to with the next configuration dialog.</p>
+              </li>
+              <li>
+                <h5>Select and Configure Packages</h5>
+                <ul style="list-style-type:disc">
+                  <li>
+                    Specify the output package location or use the default one.
+                  </li>
+                  <li> 
+                    Choose <span class="label label-info">x86</span> Architecture and <span class="label label-info">Release</span> Configuration. And finally select the <span class="label label-default">Create</span> button to complete package creation.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h5>Package Creation Complete</h5>
+                <p>Open output location from the opened dialog. And copy the application package folder <code class="text-purple">VGConnectUWPApplication_1.0.0.0_Test</code> to dick-on-key.</p>
+              </li>
+              <li>
+                <h5>Install Application on the device</h5>
+                <ul style="list-style-type:disc">
+                  <li>
+                    Connect dick-on-key to the device and locate <code class="text-purple">VGConnectUWPApplication_1.0.0.0_Test/Add-AppDevPackage.ps1</code> installation script file.
+                  </li>
+                  <li> 
+                    Open context menu (by right mouse click) and select <span class="label label-default">Run With PowerShell</span> to initiate deployment process.
+                  </li>
+                </ul>                
+              </li>
+              <li>
+                <h5>Launch Application</h5>
+                <p>Find the newly deployed application VGConnectUWPApplication, and then launch it.</p>
+              </li>
+            </ul>
+
+            <br>
+
+            <div class="alert alert-success" role="alert">
+              Note: Choose high quality bitrate 720p for the best viewing experience.
+            </div>
+            
+            <div class="video">
+              <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;"><iframe src="https://www.youtube.com/embed/dUkwHSYyZic" frameborder="0" allowfullscreen="" id="fitvid-3"></iframe></div>
             </div>
 
           </section>
