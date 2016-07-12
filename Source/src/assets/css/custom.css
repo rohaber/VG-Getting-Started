@@ -100,3 +100,18 @@
 .window-content .btn {
   margin-bottom: 6px;
 }
+
+
+/**
+ * Our stypes
+ */
+
+.half-width {
+  width: 50%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.unodered-list {
+  list-style-type: circle; 
+}
