@@ -102,25 +102,113 @@
           
           <header>
             <h1>Developing Your Own UWP Application</h1>
-            <p></p>
+            <p>You can use the VGDRM component in any UWP UI language, for example, c# /xaml and js/html.</p>
             <ol class="toc">
-              <li><a href="#win10">Windows 10</a></li>
-              <li><a href="#vs">Visual Studio 2015</a></li>
+              <li><a href="#projSetup">Project Setup</a></li>
+              <li><a href="#toDo">Things to Do in Your Application Code</a></li>
             </ol>
           </header>
 
           <section>
-            <h2 id="win10">Install Windows 10</h2>
-            <p>bla-bla</p>
+            <h2 id="projSetup">Project Setup</h2>
+            <p></p>
+            <ul class="step-text">
+              <li>
+                <h5>Copy the entire Libs folder to your solution.</h5>  
+              </li>
+              <li>
+                <h5>In your solution configuration editor, ensure that you have only win32 and ARM (and not x64).</h5>
+              </li>
+              <li>
+                <h5>Add a reference to:</h5>
+                <p><code class="text-purple">&lt;your solution folder&gt;\Libs\&lt;platform&gt;\VGConnectUWPRTComponent.winmd</code></p>
+              </li>
+              <li>
+                <h5>Add the following configuration files to your project (“Add existing item” in VS2015):</h5>
+                <ul class="unodered-list">
+                  <li>
+                   Files with extensions <code class="text-purple">*.props</code> and <code class="text-purple">*.cfg</code> located in
+                     <code class="text-purple">&lt;your solution folder&gt;\Lib</code>
+                  </li>
+                  <li>
+                    All binary files (<code class="text-purple">*.dll</code>, <code class="text-purple">*.bin</code>, <code class="text-purple">*.abc</code>) located in <code class="text-purple">&lt;your solution folder&gt;\Libs\&lt;platform&gt;\</code>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <h5>For each of the four dlls, ensure the values of the following properties are as follows:</h5>
+                <ul class="unodered-list">
+                  <li>
+                    <i>Build Action </i> &nbsp;value is <b> Content</b>
+                  </li>
+                  <li>
+                    <i>Copy to Output Directory</i> &nbsp;value is <b>Copy always</b>
+                  </li>
+               </ul>
+              </li>
+              <li>
+                <h5>In your project’s <code class="text-purple">Package.appxmanifest</code>, do the following:</h5>
+                <ul class="unordered-list">
+                  <li>
+                    Add extensions for  <code class="text-purple">MediaInnerSource.dll</code>,  <code class="text-purple">MediaProtectionSource.dll</code> &nbsp;and&nbsp; <code class="text-purple"> MediaProtectionDrmCore.dll</code> as in the example below:
+                    <pre>
+                      <code class="language-markup"> 
+        &lt;Extensions&gt;
+  &lt;Extension Category="windows.activatableClass.inProcessServer"&gt;
+    &lt;InProcessServer&gt;
+      &lt;Path&gt;MediaInnerSource.dll&lt;/Path&gt;
+      &lt;ActivatableClass ActivatableClassId="MediaInnerSource.SchemeHandler" ThreadingModel="both" /&gt;
+    &lt;/InProcessServer&gt;
+  &lt;/Extension&gt;
+  &lt;Extension Category="windows.activatableClass.inProcessServer"&gt;
+    &lt;InProcessServer&gt;
+      &lt;Path&gt;MediaProtectionSource.dll&lt;/Path&gt;
+      &lt;ActivatableClass ActivatableClassId="MediaProtectionSource.SchemeHandler" ThreadingModel="both" /&gt;
+    &lt;/InProcessServer&gt;
+  &lt;/Extension&gt;
+  &lt;Extension Category="windows.activatableClass.inProcessServer"&gt;
+    &lt;InProcessServer&gt;
+      &lt;Path&gt;MediaProtectionDrmCore.dll&lt;/Path&gt;
+      &lt;ActivatableClass ActivatableClassId="MediaProtectionDrmCore.ContentEnabler" ThreadingModel="both" /&gt;
+      &lt;ActivatableClass ActivatableClassId="MediaProtectionDrmCore.InputTrustAuthority" ThreadingModel="both" /&gt;
+      &lt;ActivatableClass ActivatableClassId="MediaProtectionDrmCore.WinRTClass" ThreadingModel="both" /&gt;
+    &lt;/InProcessServer&gt;
+  &lt;/Extension&gt;
+  &lt;Extension Category="windows.activatableClass.inProcessServer"&gt;
+    &lt;InProcessServer&gt;
+      &lt;Path&gt;MediaProtectionDrmCore_x64.abc&lt;/Path&gt;
+      &lt;ActivatableClass ActivatableClassId="MediaProtectionDrmCore_x64.ContentEnabler" ThreadingModel="both" /&gt;
+      &lt;ActivatableClass ActivatableClassId="MediaProtectionDrmCore_x64.InputTrustAuthority" ThreadingModel="both" /&gt;
+      &lt;ActivatableClass ActivatableClassId="MediaProtectionDrmCore_x64.WinRTClass" ThreadingModel="both" /&gt;
+    &lt;/InProcessServer&gt;
+  &lt;/Extension&gt;
+&lt;/Extensions&gt;
+                      </code> 
+                    </pre>
+                  </li>
+                  <li>
+                    <h5>Enable Internet and private network capabilities:</h5>
+                     <pre>
+                      <code class="language-markup"> 
+                        &lt;Capabilities>
+￼                         &lt;Capability Name="internetClient" />
+￼                         &lt;apability Name="privateNetworkClientServer" />
+￼                         &lt;/Capabilities>
+                      </code>
+                    </pre>
+                </ul>
+              </li>
+            </ul>
 
           </section>
 
           <section>
-            <h2 id="vs">Install Visual Studio 2015</h2>
+            <h2 id="toDo">Things to Do in Your Application Code</h2>
             <p>bla-bla</p>
 
           </section>
           
+
           <ul class="pager">
             <li class="previous"><a href="uwp_demo.html">Prev</a></li>
           </ul>
