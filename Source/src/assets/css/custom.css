@@ -115,3 +115,12 @@
 .unodered-list {
   list-style-type: circle; 
 }
+
+.cayn-border {
+  border-style: solid; 
+  border-width: 2px; 
+  border-color:#57c7d4; 
+  border-radius: 20px;
+}
+
+
