@@ -151,9 +151,8 @@
                 <ul class="unordered-list">
                   <li>
                     Add extensions for  <code class="text-purple">MediaInnerSource.dll</code>,  <code class="text-purple">MediaProtectionSource.dll</code> &nbsp;and&nbsp; <code class="text-purple"> MediaProtectionDrmCore.dll</code> as in the example below:
-                    <pre>
-                      <code class="language-markup"> 
-        &lt;Extensions&gt;
+                    <pre class="pre-scrollable"><code class="language-markup">
+&lt;Extensions&gt;
   &lt;Extension Category="windows.activatableClass.inProcessServer"&gt;
     &lt;InProcessServer&gt;
       &lt;Path&gt;MediaInnerSource.dll&lt;/Path&gt;
@@ -183,23 +182,19 @@
     &lt;/InProcessServer&gt;
   &lt;/Extension&gt;
 &lt;/Extensions&gt;
-                      </code> 
-                    </pre>
+                      </code></pre>
                   </li>
                   <li>
-                    <h5>Enable Internet and private network capabilities:</h5>
-                     <pre>
-                      <code class="language-markup"> 
-                        &lt;Capabilities>
-￼                         &lt;Capability Name="internetClient" />
-￼                         &lt;apability Name="privateNetworkClientServer" />
-￼                         &lt;/Capabilities>
-                      </code>
-                    </pre>
+                    Enable Internet and private network capabilities:
+                     <pre class="pre-scrollable"><code class="language-markup"> 
+&lt;Capabilities&gt;
+  &lt;Capability Name="internetClient" /&gt;
+  &lt;apability Name="privateNetworkClientServer" /&gt;
+&lt;/Capabilities&gt;
+                      </code></pre>
                 </ul>
               </li>
             </ul>
-
           </section>
 
           <section>
