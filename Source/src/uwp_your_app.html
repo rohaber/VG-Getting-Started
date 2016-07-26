@@ -200,8 +200,128 @@
 
           <section>
             <h2 id="toDo">Things to Do in Your Application Code</h2>
-            <p>bla-bla</p>
+            <p></p>
 
+            <p>On startup or any time before trying to play content call the following (examples in the demo app are in <code class="text-purple">VGConnectUWPApplication</code> in <code class="text-purple">App.xaml.cs</code> and <code class="text-purple">MainPage.xaml.cs</code>).</p>
+
+            <ul class="step-text">
+              <li>
+                <h5>Create <code>VGConnectUWPRTComponent.VGConnectAPI</code> and <code>MediaProtectionManager</code>.</h5> 
+              </li>
+              <li>
+                <h5>Register event handlers (see in the demo app how we handle them).</h5>  
+              </li>
+              <li>
+                <h5>Create <code>Windows.Media.MediaExtensionManager</code> and register inner and protected sources into it.</h5>  
+              </li>
+              <li>
+                <h5>Add protection manager to your media element.</h5>  
+              </li>
+            </ul>
+
+            <div class="code-window">
+              <pre class="pre-scrollable"><code class="language-csharp">
+private VGConnectAPI _vgAPI = null;
+private Windows.Media.MediaExtensionManager _extensionManager;
+private MediaProtectionManager _protectionManager;
+
+async private void MainPage_Loaded(object sender, RoutedEventArgs e)
+{
+  _vgAPI = new VGConnectAPI();
+  _vgAPI.InitializationFinished += handleInitializationFinished;
+  _vgAPI.Status += handleStatus;
+  _vgAPI.ActivationResult += handleActivationResult;
+  await InitVG();          
+}
+
+async Task InitVG()
+{
+  _protectionManager = new MediaProtectionManager();
+  _protectionManager.ComponentLoadFailed += EHComponentLoadFailed;
+  _protectionManager.ServiceRequested += EHServiceRequested;
+  _protectionManager.RebootNeeded += EHRebootNeeded;
+
+  myMediaPlayer.ProtectionManager = _protectionManager;
+
+  _extensionManager = new Windows.Media.MediaExtensionManager();
+  _extensionManager.RegisterSchemeHandler("MediaInnerSource.SchemeHandler", "nds:");
+  _extensionManager.RegisterSchemeHandler("MediaProtectionSource.SchemeHandler", "mediaprotection:");
+
+  _vgAPI.Init();
+}
+              </code></pre>
+              <pre><code class="language-javascript">
+              </code></pre>
+            </div>
+
+            <p>To play an ABRVOD or Linear asset:</p>
+
+            <ul class="step-text">
+              <li>
+                <h5>Call <code>_vgAPI.CreateViewingSession</code> (in the demo application, look at function <code>DoStreamAsset</code> in <code class="text-purple">VGConnectUWPApplication\MainPage.xaml.cs</code> file in InitVG).</h5>  
+              </li>
+              <li>
+                <h5>Keep the returned object, and then operate it.</h5>  
+                <div class="alert alert-info" role="alert">
+                  Note: Consult the demo app for an example of asset details to which to set this object.
+                </div>
+              </li>
+              <li>
+                <h5>Receive the URI in the handler for <code>vgAPI.ViewingSessionStatus</code> (<code>handleViewingStatus</code> in the demo app), and then set your media element URL property to this URI (<code>handlePlayUrlReady</code> in the demo app).</h5>  
+              </li>
+            </ul>            
+
+            <div class="code-window">
+              <pre class="pre-scrollable"><code class="language-csharp">
+private async void ButtonPlay_Click(object sender, RoutedEventArgs e)
+{
+  IPlayer playerSource = _vgAPI.GetPlayer();
+  _vs = _vgAPI.CreateViewingSession(SourceType.OTT, SessionType.LIVE);
+
+  _vs.SetSecurityParameters(RequestLicenseToken());
+  _vs.SetAssetId("1000");
+  _vs.SetUrl("http://my.com/sport/1000/latest.m3u8");
+  _vs.SetUrlType(ContentUrlTypes.FULL_URL);
+  _vs.SetProtectionType(ContentProtectionTypes.CISCO_DRM);
+  _playerSource.SetAbrMaxTuningTime((int)10000);
+
+  _vs.Status += handleViewingStatus;
+  _vs.Start();
+}
+
+async void handleViewingStatus(object sender, StatusCodes status, StatusCodes payload)
+{
+  if (status == StatusCodes.XFERM_PLAYBACK_READY)
+  {
+      await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+      {
+          myMediaPlayer.Source = new Uri(_vs.PlayURL());
+      });
+  }
+}
+              </code></pre>
+              <pre><code class="language-javascript">
+              </code></pre>
+            </div>
+
+            <div class="alert alert-info" role="alert">
+              <b>Note:</b> Register operation system events <code>Application.Current.Suspending</code>,
+<code>Application.Current.Resuming</code>, <code>Application.Current.Closed</code> when the application goes into the background or is closed.
+            </div>
+
+            <div class="alert alert-info" role="alert">
+              <b>Note:</b> If the error occurs during playback, destroy the media element URL source. For example, use <code>myMediaElement.Source = <b>null</b></code>
+            </div>
+
+            <br>
+           
+            <div class="alert alert-success" role="alert">
+              Note: Choose high quality bitrate 720p for the best viewing experience.
+            </div>
+
+            <div class="video">
+              <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;"><iframe src="https://www.youtube.com/embed/QRSMaQQWQ9Q" frameborder="0" allowfullscreen="" id="fitvid-1"></iframe></div>
+            </div>            
           </section>
 
           <section>
