@@ -102,7 +102,7 @@
           
           <header>
             <h1>Developing Your Own UWP Application</h1>
-            <p>You can use the VGDRM component in any UWP UI language, for example, c# /xaml and js/html.</p>
+            <p>You can use the VGDRM component in any UWP UI language, for example, c#/xaml and js/html.</p>
             <ol class="toc">
               <li><a href="#projSetup">Project Setup</a></li>
               <li><a href="#toDo">Things to Do in Your Application Code</a></li>
@@ -206,16 +206,20 @@
 
             <ul class="step-text">
               <li>
-                <h5>Create <code>VGConnectUWPRTComponent.VGConnectAPI</code> and <code>MediaProtectionManager</code>.</h5> 
+                <h5>Create instance of VGConnectAPI</h5>
+                <p>Create <code>VGConnectUWPRTComponent.VGConnectAPI</code> and <code>MediaProtectionManager</code>.</p> 
               </li>
               <li>
-                <h5>Register event handlers (see in the demo app how we handle them).</h5>  
+                <h5>Event registration</h5>
+                <p>Register event handlers for <code>VGConnectAPI</code> and <code>MediaProtectionManager</code> (see in the demo app how we handle them).</p>  
               </li>
               <li>
-                <h5>Create <code>Windows.Media.MediaExtensionManager</code> and register inner and protected sources into it.</h5>  
+                <h5>Scheme handlers registration</h5>
+                <p>Create <code>Windows.Media.MediaExtensionManager</code> and register inner and protected sources into it.</p>  
               </li>
               <li>
-                <h5>Add protection manager to your media element.</h5>  
+                <h5>Media Element configuration</h5>
+                <p>Add protection manager to your media element.</p>  
               </li>
             </ul>
 
@@ -258,7 +262,7 @@ async Task InitVG()
 
             <ul class="step-text">
               <li>
-                <h5>Call <code>_vgAPI.CreateViewingSession</code> (in the demo application, look at function <code>DoStreamAsset</code> in <code class="text-purple">VGConnectUWPApplication\MainPage.xaml.cs</code> file in InitVG).</h5>  
+                <p>Call <code>_vgAPI.CreateViewingSession</code> (in the demo application, look at function <code>DoStreamAsset</code> in <code class="text-purple">VGConnectUWPApplication\MainPage.xaml.cs</code> file in InitVG).</p>  
               </li>
               <li>
                 <h5>Keep the returned object, and then operate it.</h5>  
