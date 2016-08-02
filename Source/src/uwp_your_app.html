@@ -102,7 +102,7 @@
           
           <header>
             <h1>Developing Your Own UWP Application</h1>
-            <p>You can use the VGDRM component in any UWP UI language, for example, c# /xaml and js/html.</p>
+            <p>You can use the VGDRM component in any UWP UI language, for example, c#/xaml and js/html.</p>
             <ol class="toc">
               <li><a href="#projSetup">Project Setup</a></li>
               <li><a href="#toDo">Things to Do in Your Application Code</a></li>
@@ -200,14 +200,178 @@
 
           <section>
             <h2 id="toDo">Things to Do in Your Application Code</h2>
-            <p>bla-bla</p>
+            <p></p>
 
+            <p>On startup or any time before trying to play content call the following (examples in the demo app are in <code class="text-purple">VGConnectUWPApplication</code> in <code class="text-purple">App.xaml.cs</code> and <code class="text-purple">MainPage.xaml.cs</code>).</p>
+
+            <ul class="step-text">
+              <li>
+                <h5>Create instance of VGConnectAPI</h5>
+                <p>Create <code>VGConnectUWPRTComponent.VGConnectAPI</code> and <code>MediaProtectionManager</code>.</p> 
+              </li>
+              <li>
+                <h5>Event registration</h5>
+                <p>Register event handlers for <code>VGConnectAPI</code> and <code>MediaProtectionManager</code> (see in the demo app how we handle them).</p>  
+              </li>
+              <li>
+                <h5>Scheme handlers registration</h5>
+                <p>Create <code>Windows.Media.MediaExtensionManager</code> and register inner and protected sources into it.</p>  
+              </li>
+              <li>
+                <h5>Media Element configuration</h5>
+                <p>Add protection manager to your media element.</p>  
+              </li>
+            </ul>
+
+            <div class="code-window">
+              <pre class="pre-scrollable"><code class="language-csharp">
+private VGConnectAPI _vgAPI = null;
+private Windows.Media.MediaExtensionManager _extensionManager;
+private MediaProtectionManager _protectionManager;
+
+async private void MainPage_Loaded(object sender, RoutedEventArgs e)
+{
+  _vgAPI = new VGConnectAPI();
+  _vgAPI.InitializationFinished += handleInitializationFinished;
+  _vgAPI.Status += handleStatus;
+  _vgAPI.ActivationResult += handleActivationResult;
+  await InitVG();          
+}
+
+async Task InitVG()
+{
+  _protectionManager = new MediaProtectionManager();
+  _protectionManager.ComponentLoadFailed += EHComponentLoadFailed;
+  _protectionManager.ServiceRequested += EHServiceRequested;
+  _protectionManager.RebootNeeded += EHRebootNeeded;
+
+  myMediaPlayer.ProtectionManager = _protectionManager;
+
+  _extensionManager = new Windows.Media.MediaExtensionManager();
+  _extensionManager.RegisterSchemeHandler("MediaInnerSource.SchemeHandler", "nds:");
+  _extensionManager.RegisterSchemeHandler("MediaProtectionSource.SchemeHandler", "mediaprotection:");
+
+  _vgAPI.Init();
+}
+              </code></pre>
+              <pre><code class="language-javascript">
+              </code></pre>
+            </div>
+
+            <p>To play an ABRVOD or Linear asset:</p>
+
+            <ul class="step-text">
+              <li>
+                <h5>Create viewing session object</h5>
+                <p>Call <code>_vgAPI.CreateViewingSession</code> (in the demo application, look at function <code>DoStreamAsset</code> in <code class="text-purple">VGConnectUWPApplication\MainPage.xaml.cs</code> file in InitVG). Keep the returned object, and then operate it.</p>  
+                <div class="alert alert-info" role="alert">
+                  Note: Consult the demo app for an example of asset details to which to set this object.
+                </div>
+              </li>
+              <li>
+                <h5>Play local url</h5>
+                <p>Receive the URI in the handler for <code>vgAPI.ViewingSessionStatus</code> (<code>handleViewingStatus</code> in the demo app), and then set your media element URL property to this URI (<code>handlePlayUrlReady</code> in the demo app).</p>  
+              </li>
+            </ul>            
+
+            <div class="code-window">
+              <pre class="pre-scrollable"><code class="language-csharp">
+private async void ButtonPlay_Click(object sender, RoutedEventArgs e)
+{
+  IPlayer playerSource = _vgAPI.GetPlayer();
+  _vs = _vgAPI.CreateViewingSession(SourceType.OTT, SessionType.LIVE);
+
+  _vs.SetSecurityParameters(RequestLicenseToken());
+  _vs.SetAssetId("1000");
+  _vs.SetUrl("http://my.com/sport/1000/latest.m3u8");
+  _vs.SetUrlType(ContentUrlTypes.FULL_URL);
+  _vs.SetProtectionType(ContentProtectionTypes.CISCO_DRM);
+  _playerSource.SetAbrMaxTuningTime((int)10000);
+
+  _vs.Status += handleViewingStatus;
+  _vs.Start();
+}
+
+async void handleViewingStatus(object sender, StatusCodes status, StatusCodes payload)
+{
+  if (status == StatusCodes.XFERM_PLAYBACK_READY)
+  {
+      await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+      {
+          myMediaPlayer.Source = new Uri(_vs.PlayURL());
+      });
+  }
+}
+              </code></pre>
+              <pre><code class="language-javascript">
+              </code></pre>
+            </div>
+
+            <div class="alert alert-info" role="alert">
+              <b>Note:</b> Register operation system events <code>Application.Current.Suspending</code>,
+<code>Application.Current.Resuming</code>, <code>Application.Current.Closed</code> when the application goes into the background or is closed.
+            </div>
+
+            <div class="alert alert-info" role="alert">
+              <b>Note:</b> If the error occurs during playback, destroy the media element URL source. For example, use <code>myMediaElement.Source = <b>null</b></code>
+            </div>
+
+            <br>
+           
+            <div class="alert alert-success" role="alert">
+              Note: Choose high quality bitrate 720p for the best viewing experience.
+            </div>
+
+            <div class="video">
+              <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;"><iframe src="https://www.youtube.com/embed/QRSMaQQWQ9Q" frameborder="0" allowfullscreen="" id="fitvid-1"></iframe></div>
+            </div>            
           </section>
 
           <section>
-            <h2 id="logging">How to Debug and Enable Logging in Your UWP Application</h2>
-            <p>bla-bla</p>
+            <h2 id="logging">How to Debug and Enable Logging in Your UWP App</h2>
+            <p></p>
+            <ul class="step-text">
+              <li>
+                <h5>Debug build configuration</h5>
+                <p>We provide binaries for the Release and Debug build configurations. You should use VisualStudio's properties to define paths to use Debug or Release dlls in your project. Open the project file in your preferable text editor and update paths as in example:</p>  
+                <pre class="pre-scrollable"><code class="language-markup">
+&lt;Content Include="..\libs\$(Platform)\$(Configuration)\VGConnectUWPRTComponent.dll.bin"&gt;
+  &lt;CopyToOutputDirectory&gt;Always&lt;/CopyToOutputDirectory&gt;
+&lt;/Content&gt;
+&lt;Reference Include="VGConnectUWPRTComponent, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL"&gt;
+  &lt;SpecificVersion>False&lt;/SpecificVersion&gt;
+  &lt;HintPath&gt;..\libs\$(Platform)\$(Configuration)\VGConnectUWPRTComponent.winmd&lt;/HintPath&gt;
+&lt;/Reference&gt;
+                      </code></pre>
+              </li>
+              <li>
+                <h5>Unti-Debugging</h5>
+                <p>We prevent any attempt to debug the application (both of them managed and unmanaged code) in the Release build mode. In order to debug the applicaiton code the author has to work against a development DRM HE. Contact to your system engineer to get parameters of a development server. This instance must be cofigured to do not use Unti-Debugging.</p>
+                <div class="alert alert-danger" role="alert">
+                  Note: Don't forget to uninstall the applicaiton or remove <code class="text-purple">c:\Users\&lt;user&gt;\AppData\Local\Packages\&lt;your_pp&gt;\LocalState\llds</code> folder on change of HE configuration.
+                </div>                
+              </li>
+              <li>
+                <h5>VGDRM Logging</h5>
+                <p>Create <code class="text-purple">c:\tmp\log</code> folder and grant <b>full control</b> permissions to the <i>ALL APPLICATION PACKAGES</i> user. Add an new component logers into the <code class="text-purple">config.props</code> file. All VGDRM logs will be stored under this folder.</p>               
+                <div class="alert alert-danger" role="alert">
+                  Note: Some components have very detailed logging capabilities and files size might grouth fast. Therefore delete the content of the folder periodically. In addition open logs effect on the application performnce and playback quality!
+                </div>    
+              </li>
+                <pre><code class="language-ini">
+VGConnect.log.severities=511  
+VGConnect.log.file=c:\tmp\log\VGConnect
+                      </code></pre>
+              </li>
+            </ul>  
 
+            <div class="alert alert-success" role="alert">
+              Note: Choose high quality bitrate 720p for the best viewing experience.
+            </div>
+
+            <div class="video">
+              <div class="fluid-width-video-wrapper" style="padding-top: 56.25%;"><iframe src="https://www.youtube.com/embed/TfeZ9Gp6WSU" frameborder="0" allowfullscreen="" id="fitvid-1"></iframe></div>
+            </div> 
           </section>
                     
 
