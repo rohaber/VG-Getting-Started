@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
 
-    <title>VGDRM Getting Statred</title>
+    <title>VideoGuard DRM - Integration Package</title>
 
     <!-- Styles -->
     <link href="assets/css/theDocs.all.min.css" rel="stylesheet">
@@ -117,9 +117,9 @@
             <div class="file-tree">
               <ul>
                 <li class="is-folder open">
-                  Legal<i>third-party licenses folder</i>
+                  legal<i>third-party licenses folder</i>
                   <ul>
-                    <li class="is-file">VGDRM_SDK_5.2.pdf<i>Open source used in SDK document</i></li>
+                    <li class="is-file">VGDRM_SDK_LICENSES.pdf<i>Open source used in SDK document</i></li>
                   </ul>
                 </li>
 
@@ -132,19 +132,19 @@
                       libs<i>SDK binaries distribution</i>
                       <ul>
                         <li class="is-file">config.props<i>SDK configuration file</i></li>
-                        <li class="is-folder">vgdrm_enc.cfg</i>DRMA ecripted configuration file</li>
-                        <li class="is-folder">x86</i>Binaries for Intel based platforms</li>
-                        <li class="is-folder">arm</i>Binaries for Intel based platforms</li>
+                        <li class="is-file">vgdrm_enc.cfg<i> DRMA ecripted configuration file</i></li>
+                        <li class="is-folder">x86<i>Binaries for Intel 32 bits based platforms (Desktops and Tablets)</i></li>
+                        <li class="is-folder">x64<i>Binaries for Intel 64 bits based platforms (XBox One)</i></li>
+                        <li class="is-folder">arm<i>Binaries for Arm based platforms (WinPhone)</i></li>
                       </ul>
-                    </li>
                   </ul>
                 </li>
 
                 <li class="is-folder open">
-                  Docs<i>Documentation folder</i>
+                  docs<i>Documentation folder</i>
                   <ul>
                     <li class="is-file">VGDRM for Universal Windows Platform (UWP) Apps - Developer Guide.pdf<i>UWP Getting started guide</i></li>
-                    <li class="is-file">VGDRM Application Programming Interface (API) for the Universal Windows Platform (UWP).pdf<i>UWP PI document</i></li>
+                    <li class="is-file">VGDRM Application Programming Interface (API) for the Universal Windows Platform (UWP).pdf<i>UWP API document</i></li>
                   </ul>
                 </li>
 
@@ -166,11 +166,11 @@
             <h2 id="app">VGConnectUWPApplication Folder</h2>
             <p>This folder contains a VS2015 Solution that was used to build the demo application and the binary files required to build your own application using our components.</p>
 
-            <p>The <code class="text-purple">VGConnectUWPApplication</code> folder contains the <code>C#/xaml</code> project. This C# project contains references to the set of dlls it expects to find in the folder <code class="text-purple">\Libs\&lt;platform&gt;\</code>, for example, <code class="text-purple">\Libs\ARM\</code>.</p>
+            <p>The <code class="text-purple">VGConnectUWPApplication</code> folder contains the <code>C#/xaml</code> project. This C# project contains references to the set of dlls it expects to find in the folder <code class="text-purple">\Libs\&lt;platform&gt;</code>, for example, <code class="text-purple">\Libs\ARM</code>.</p>
 
-            <p><code class="text-purple">GConnectUWPSolution.sln</code> is the VS2015 Solution file. For more information, see section, “Installing and Running Demo Application”.</p>
+            <p><code class="text-purple">VGConnectUWPSolution.sln</code> is the VS2015 Solution file. For more information, see <a href="uwp_demo.html#install" class="btn btn-round btn-xs btn-teal" role="button">Installing and Running Demo Application</a>.</p>
 
-            <p><code class="text-purple">config.props</code> and <code class="text-purple"code>vgdrm_enc.cfg</code> are configuration files that must be saved in the folder with binary files. Modify headend properties in file <code class="text-purple">config.props</code>, if necessary.</p>
+            <p><code class="text-purple">config.props</code> and <code class="text-purple"code>vgdrm_enc.cfg</code> are configuration files that must be saved in the folder with binary files. You can modify headend properties in file <code class="text-purple">config.props</code>, if necessary.</p>
 
             <p>The <code class="text-purple">appSettings.json</code> file can be used to modify application behavior and sample data.</p>
             
