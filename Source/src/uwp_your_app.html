@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
 
-    <title>VGDRM Getting Statred</title>
+    <title>VideoGuard DRM - Developing your own UWP App</title>
 
     <!-- Styles -->
     <link href="assets/css/theDocs.all.min.css" rel="stylesheet">
@@ -101,31 +101,34 @@
         <article class="col-md-9 col-sm-9 main-content" role="main">
           
           <header>
-            <h1>Developing Your Own UWP Application</h1>
-            <p>You can use the VGDRM component in any UWP UI language, for example, c#/xaml and js/html.</p>
+            <h1>Developing Your Own UWP VideoGuard Application</h1>
+            <p>
+              Following below steps, you will be able to develop and debug your own first VideoGuard UWP application.<br>
+              <div class="alert alert-success" role="alert">You can use the VGDRM components in any UWP supported language (C#/XAML, JS/HTML, etc.)</div>
+            </p>
             <ol class="toc">
-              <li><a href="#projSetup">Project Setup</a></li>
-              <li><a href="#toDo">Things to Do in Your Application Code</a></li>
+              <li><a href="#projSetup">Project setup</a></li>
+              <li><a href="#appFlow">Application flow</a></li>
               <li><a href="#logging">Debugging and Logging</a></li>
             </ol>
           </header>
 
           <section>
-            <h2 id="projSetup">Project Setup</h2>
+            <h2 id="projSetup">Project setup</h2>
             <p></p>
             <ul class="step-text">
               <li>
-                <h5>Copy the entire Libs folder to your solution.</h5>  
+                <h5>Copy the entire <code class="text-purple">Libs</code> folder to your solution.</h5>  
               </li>
               <li>
-                <h5>In your solution configuration editor, ensure that you have only win32 and ARM (and not x64).</h5>
+                <h5>In your solution configuration editor, make sure you have only win32 and ARM configurations (and not x64).</h5>
               </li>
               <li>
-                <h5>Add a reference to:</h5>
+                <h5>For each platform configuration, add a reference to:</h5>
                 <p><code class="text-purple">&lt;your solution folder&gt;\Libs\&lt;platform&gt;\VGConnectUWPRTComponent.winmd</code></p>
               </li>
               <li>
-                <h5>Add the following configuration files to your project (“Add existing item” in VS2015):</h5>
+                <h5>Add the following files to your project (“Add existing item” in VS2015):</h5>
                 <ul class="unodered-list">
                   <li>
                    Files with extensions <code class="text-purple">*.props</code> and <code class="text-purple">*.cfg</code> located in
@@ -137,21 +140,25 @@
                 </ul>
               </li>
               <li>
-                <h5>For each of the four dlls, ensure the values of the following properties are as follows:</h5>
-                <ul class="unodered-list">
-                  <li>
-                    <i>Build Action </i> &nbsp;value is <b> Content</b>
-                  </li>
-                  <li>
-                    <i>Copy to Output Directory</i> &nbsp;value is <b>Copy always</b>
-                  </li>
-               </ul>
+                <h5>For each binary file, set the following properties:</h5>
+                <table class="table table-bordered table-striped table-info">
+                  <tbody>
+                    <tr>
+                      <td>Build Action</td>
+                      <td><b>Content</b></td>
+                    </tr>
+                    <tr>
+                      <td>Copy to Output Directory</td>
+                      <td><b>Copy always</b></td>
+                    </tr>
+                  </tbody>
+                </table>
               </li>
               <li>
                 <h5>In your project’s <code class="text-purple">Package.appxmanifest</code>, do the following:</h5>
                 <ul class="unordered-list">
                   <li>
-                    Add extensions for  <code class="text-purple">MediaInnerSource.dll</code>,  <code class="text-purple">MediaProtectionSource.dll</code> &nbsp;and&nbsp; <code class="text-purple"> MediaProtectionDrmCore.dll</code> as in the example below:
+                    Insert the following code:
                     <pre class="pre-scrollable"><code class="language-markup">
 &lt;Extensions&gt;
   &lt;Extension Category="windows.activatableClass.inProcessServer"&gt;
@@ -199,10 +206,10 @@
           </section>
 
           <section>
-            <h2 id="toDo">Things to Do in Your Application Code</h2>
+            <h2 id="appFlow">Application flow</h2>
             <p></p>
 
-            <p>On startup or any time before trying to play content call the following (examples in the demo app are in <code class="text-purple">VGConnectUWPApplication</code> in <code class="text-purple">App.xaml.cs</code> and <code class="text-purple">MainPage.xaml.cs</code>).</p>
+            <h4>Initializing VideoGuard DRM:</h4>
 
             <ul class="step-text">
               <li>
@@ -254,23 +261,22 @@ async Task InitVG()
   _vgAPI.Init();
 }
               </code></pre>
-              <pre><code class="language-javascript">
-              </code></pre>
             </div>
-
-            <p>To play an ABRVOD or Linear asset:</p>
+            <br><br>
+            <h4>Playing VOD or Live content:</h4>
 
             <ul class="step-text">
               <li>
                 <h5>Create viewing session object</h5>
-                <p>Call <code>_vgAPI.CreateViewingSession</code> (in the demo application, look at function <code>DoStreamAsset</code> in <code class="text-purple">VGConnectUWPApplication\MainPage.xaml.cs</code> file in InitVG). Keep the returned object, and then operate it.</p>  
+                <p>Call <code>CreateViewingSession</code> (in the demo application, look at function <code>DoStreamAsset</code> in <code class="text-purple">VGConnectUWPApplication\MainPage.xaml.cs</code> file in InitVG).
+                <br>Keep the returned object, it is used for session specific APIs and events.</p>  
                 <div class="alert alert-info" role="alert">
-                  Note: Consult the demo app for an example of asset details to which to set this object.
+                  Note: Consult the demo app for an example of asset details to pass into CreateViewingSession API.
                 </div>
               </li>
               <li>
-                <h5>Play local url</h5>
-                <p>Receive the URI in the handler for <code>vgAPI.ViewingSessionStatus</code> (<code>handleViewingStatus</code> in the demo app), and then set your media element URL property to this URI (<code>handlePlayUrlReady</code> in the demo app).</p>  
+                <h5>Pass returned local URL to MediaElement</h5>
+                <p>Receive the URL in your handler for <code>ViewingSessionStatus</code> event (<code>handleViewingStatus</code> in the demo app), and set your <code>MediaElement.Source</code> property to this URL (<code>handlePlayUrlReady</code> in the demo app).</p>  
               </li>
             </ul>            
 
@@ -308,12 +314,7 @@ async void handleViewingStatus(object sender, StatusCodes status, StatusCodes pa
             </div>
 
             <div class="alert alert-info" role="alert">
-              <b>Note:</b> Register operation system events <code>Application.Current.Suspending</code>,
-<code>Application.Current.Resuming</code>, <code>Application.Current.Closed</code> when the application goes into the background or is closed.
-            </div>
-
-            <div class="alert alert-info" role="alert">
-              <b>Note:</b> If the error occurs during playback, destroy the media element URL source. For example, use <code>myMediaElement.Source = <b>null</b></code>
+              <b>Note:</b> If an error occurs during playback, destroy the media element URL source. For example, use <code>myMediaElement.Source = <b>null</b></code>
             </div>
 
             <br>
@@ -328,7 +329,7 @@ async void handleViewingStatus(object sender, StatusCodes status, StatusCodes pa
           </section>
 
           <section>
-            <h2 id="logging">How to Debug and Enable Logging in Your UWP App</h2>
+            <h2 id="logging">Debugging and Logging</h2>
             <p></p>
             <ul class="step-text">
               <li>
@@ -345,23 +346,27 @@ async void handleViewingStatus(object sender, StatusCodes status, StatusCodes pa
                       </code></pre>
               </li>
               <li>
-                <h5>Unti-Debugging</h5>
-                <p>We prevent any attempt to debug the application (both of them managed and unmanaged code) in the Release build mode. In order to debug the applicaiton code the author has to work against a development DRM HE. Contact to your system engineer to get parameters of a development server. This instance must be cofigured to do not use Unti-Debugging.</p>
+                <h5>Anti-Debugging</h5>
+                <p>VideoGuard DRM uses several Anti-Debugging techniques to prevent debugging its code, as well as the containing application in Release build mode. 
+                <br>In order to debug the application code the author has to work against a development DRM HE. 
+                <br>Contact to your system engineer to get parameters of a development server with Anti-Debugging feature turned off.</p>
                 <div class="alert alert-danger" role="alert">
-                  Note: Don't forget to uninstall the applicaiton or remove <code class="text-purple">c:\Users\&lt;user&gt;\AppData\Local\Packages\&lt;your_pp&gt;\LocalState\llds</code> folder on change of HE configuration.
+                  Note: Don't forget to uninstall the applicaiton or remove <code class="text-purple">c:\Users\&lt;user&gt;\AppData\Local\Packages\&lt;your_pp&gt;\LocalState\llds</code> folder after changing the HE configuration.
                 </div>                
               </li>
               <li>
                 <h5>VGDRM Logging</h5>
-                <p>Create <code class="text-purple">c:\tmp\log</code> folder and grant <b>full control</b> permissions to the <i>ALL APPLICATION PACKAGES</i> user. Add an new component logers into the <code class="text-purple">config.props</code> file. All VGDRM logs will be stored under this folder.</p>               
-                <div class="alert alert-danger" role="alert">
-                  Note: Some components have very detailed logging capabilities and files size might grouth fast. Therefore delete the content of the folder periodically. In addition open logs effect on the application performnce and playback quality!
-                </div>    
-              </li>
+                <p>Create <code class="text-purple">c:\tmp\log</code> folder and grant <b>full control</b> permissions to the <i>ALL APPLICATION PACKAGES</i> user. Add a new component loggers into the <code class="text-purple">config.props</code> file (see below code snippet). All VGDRM logs will be stored under this folder.</p>               
                 <pre><code class="language-ini">
 VGConnect.log.severities=511  
 VGConnect.log.file=c:\tmp\log\VGConnect
                       </code></pre>
+              </li>
+                <div class="alert alert-danger" role="alert">
+                  Note: Some components have very detailed logging capabilities and files size might grow fast. 
+                  <br>Therefore, delete the content of the folder periodically. 
+                  <br>In addition, keep in mind that logging affects the application performance and playback quality!
+                </div>    
               </li>
             </ul>  
 

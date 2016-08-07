@@ -210,7 +210,7 @@ $(function() {
   //
 
   // Code snippet
-  $('pre').each(function(index, value) {
+  /*$('pre').each(function(index, value) {
     if ($(this).parents('.code-window').length || $(this).parents('.code-taps').length) {
       return;
     }
@@ -229,7 +229,7 @@ $(function() {
 
   $('pre .language-name').parent().on('scroll', function(){
     $(this).find('.language-name').css('transform', 'translate('+ $(this).scrollLeft() +'px, '+ $(this).scrollTop() +'px)');
-  });
+  });*/
 
   // Code window
   $('.code-window').each(function(index, value){
